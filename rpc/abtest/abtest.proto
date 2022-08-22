@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package abtest;
+option go_package="./abtest";
+
+message abReq{
+}
+
+message abRsp{
+    string plan = 1;
+    string userCase = 2;
+}
+
+service usecase{
+    rpc usecase(abReq) returns(abRsp);
+}

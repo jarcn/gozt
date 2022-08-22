@@ -1,0 +1,55 @@
+syntax = "v1"
+
+info (
+	title: "shorturl"
+	desc: "go 微服务 demo"
+	author: "chenjia"
+	email: "chenjia@qiyee-tech.com"
+)
+
+type (
+	expandReq {
+		Shorten string `form:"shorten"`
+	}
+
+	expandResp {
+		Url string `json:"url"`
+	}
+)
+
+type (
+	shortenReq {
+		Url string `form:"url"`
+	}
+
+	shortenResp {
+		Shorten string `json:"shorten"`
+	}
+)
+
+type (
+	abReq {
+	}
+
+	abRsp {
+		Plan     string `json:"plan"`
+		UserCase string `json:"userCase"`
+	}
+)
+
+service shorturl-api {
+	@server(
+		handler: ShortenHandler
+	)
+	get /shorten(shortenReq) returns(shortenResp)
+	
+	@server(
+		handler: ExpandHandler
+	)
+	get /expand(expandReq) returns(expandResp)
+	
+	@server(
+		handler: AbHandler
+	)
+	get /abplan(abReq) returns(abRsp)
+}
