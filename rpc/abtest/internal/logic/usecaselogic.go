@@ -26,10 +26,15 @@ func NewUsecaseLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UsecaseLo
 //go run transform.go -f etc/transform.yaml
 // go run shorturl.go -f etc/shorturl-api.yaml
 func (l *UsecaseLogic) Usecase(in *abtest.AbReq) (*abtest.AbRsp, error) {
-	//业务逻辑代码开始
-	return &abtest.AbRsp{
-		UserCase: "用户注册流程",
-		Plan:     "A",
-	}, nil
-	//业务逻辑代码结束
+	if rate() < 5 {
+		return &abtest.AbRsp{
+			UserCase: "用户注册流程",
+			Plan:     "A",
+		}, nil
+	} else {
+		return &abtest.AbRsp{
+			UserCase: "用户注册流程",
+			Plan:     "B",
+		}, nil
+	}
 }
